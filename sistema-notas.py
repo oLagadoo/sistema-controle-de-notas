@@ -1,29 +1,40 @@
 print("Hello, world!")
 
-while True:
-    nome_aluno = str(input("Digite seu nome: ")).lower()
-
-    nota_somada = 0
-    notas_digitadas = 0
-
+def ler_notas():
+    notas = []
     for i in range(1, 4):
-        notas = float(input(f'Digite sua {i}ª nota: '))
+        nota = float(input(f"Digite a {i}ª nota: "))
+        notas.append(nota)
+    return notas
 
-        nota_somada += notas
-        notas_digitadas += 1
+def calcular_media(notas):
+    return sum(notas) / len(notas)
 
-    media_calculada = nota_somada / notas_digitadas
-    print(f'Sua média é {media_calculada:.2f}')
 
-    if media_calculada > 7:
-        print("Aprovado")
-    elif media_calculada >= 5:
-        print("Recuperação")
+def verificar_situacao(media):
+    if media > 7:
+        return "Aprovado"
+    elif media >= 5:
+        return "Recuperação"
     else:
-        print("Reprovado")
+        return "Reprovado"
 
-    opcao = input("Deseja calcular outro aluno? (s/n): ").lower()
 
+def mostrar_resultado(nome, media, situacao):
+    print(f"Aluno: {nome}")
+    print(f"Media: {media:.2f}")
+    print(f"Situação: {situacao}")
+
+while True:
+    nome = input("Digite o nome do aluno: ")
+
+    notas = ler_notas()
+    media = calcular_media(notas)
+    situacao = verificar_situacao(media)
+
+    mostrar_resultado(nome, media, situacao)
+
+    opcao = input("\nDeseja calcular outro aluno? (s/n): ").lower()
     if opcao != 's':
         print("Programa encerrado!")
         break
